@@ -19,8 +19,19 @@ import { Flashcard, AnswerDifficulty, BucketMap } from "./flashcards";
  * @spec.requires buckets is a valid representation of flashcard buckets.
  */
 export function toBucketSets(buckets: BucketMap): Array<Set<Flashcard>> {
-  // TODO: Implement this function
-  throw new Error("Implement me!");
+  const bucketArray = new Array<Set<Flashcard>>();
+  const keys = Array.from(buckets.keys());
+  const maxKey = Math.max(...keys);
+  if(keys.length === 0) return bucketArray;
+
+  for (let i = 0; i <= maxKey; i++) {
+    if (buckets.has(i)) {
+      bucketArray.push(buckets.get(i)!);
+    } else {
+      bucketArray.push(new Set<Flashcard>());
+    }
+  }
+  return bucketArray;
 }
 
 export function isPrime(n: number) {

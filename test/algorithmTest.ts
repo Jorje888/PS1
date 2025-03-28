@@ -34,15 +34,62 @@ describe("isPrime()", () => {
 
 /*
  * Testing strategy for toBucketSets():
- *
- * TODO: Describe your testing strategy for toBucketSets() here.
+ * 
+ * Cover partitions:
+ *    Empty Bucket
+ *    Non-empty Bucket:
+ *        One Non-empty Bucket
+ *        Multiple sequential Non-empty Buckets
+ *        Multiple non-sequential Non-empty Buckets
+ * 
  */
 describe("toBucketSets()", () => {
-  it("Example test case - replace with your own tests", () => {
-    assert.fail(
-      "Replace this test case with your own tests based on your testing strategy"
-    );
+  it("Covers Empty Bucket", () => {
+    const buckets: BucketMap = new Map();
+    const bucketSet: Array<Set<Flashcard>> = toBucketSets(buckets);
+    assert.equal(bucketSet.length, 0);
   });
+  it("Covers One Non-empty Bucket", () => {
+    const flashcard = new Flashcard("front", "back", "hint", []);
+    const flashSet = new Set<Flashcard>();
+    flashSet.add(flashcard);
+
+    const buckets: BucketMap = new Map();
+    buckets.set(0, flashSet);
+
+    const bucketSet: Array<Set<Flashcard>> = toBucketSets(buckets);
+    const shouldBe = [flashSet];
+    assert.deepEqual(bucketSet, shouldBe);
+  });
+  it("Covers Multiple sequential Non-empty Buckets", () => {
+    const flashcard = new Flashcard("front", "back", "hint", []);
+    const flashSet = new Set<Flashcard>();
+    flashSet.add(flashcard);
+
+    const buckets: BucketMap = new Map(); 
+    buckets.set(0, flashSet);
+    buckets.set(1, flashSet);
+    buckets.set(2, flashSet);
+
+    const bucketSet: Array<Set<Flashcard>> = toBucketSets(buckets);
+    const shouldBe = [flashSet, flashSet, flashSet];
+    assert.deepEqual(bucketSet, shouldBe);
+  })
+  it("Covers Multiple non-sequential Non-empty Buckets", () => {
+    const flashcard = new Flashcard("front", "back", "hint", []);
+    const flashSet = new Set<Flashcard>();
+    const emptySet = new Set<Flashcard>();
+    flashSet.add(flashcard);  
+
+    const buckets: BucketMap = new Map(); 
+    buckets.set(0, flashSet);
+    buckets.set(2, flashSet);
+    buckets.set(5, flashSet);
+
+    const bucketSet: Array<Set<Flashcard>> = toBucketSets(buckets);
+    const shouldBe = [flashSet, emptySet, flashSet, emptySet, emptySet, flashSet];
+    assert.deepEqual(bucketSet, shouldBe);
+  })
 });
 
 /*
