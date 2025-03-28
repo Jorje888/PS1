@@ -52,8 +52,11 @@ export function isPrime(n: number) {
 export function getBucketRange(
   buckets: Array<Set<Flashcard>>
 ): { minBucket: number; maxBucket: number } | undefined {
-  // TODO: Implement this function
-  throw new Error("Implement me!");
+  const nonEmptyBuckets = buckets.filter((bucket) => bucket.size > 0);
+  if (nonEmptyBuckets.length === 0) return undefined;
+  const minBucket = Math.min(...nonEmptyBuckets.map((bucket) => bucket.size));
+  const maxBucket = Math.max(...nonEmptyBuckets.map((bucket) => bucket.size));
+  return { minBucket, maxBucket };
 }
 
 /**
