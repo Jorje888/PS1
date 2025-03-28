@@ -161,14 +161,212 @@ describe("getBucketRange()", () => {
 /*
  * Testing strategy for practice():
  *
- * TODO: Describe your testing strategy for practice() here.
+ * Cover Carterian Product of Partitions:
+ *    Empty Array
+ *    Non-empty Array:
+ *        One Empty Set
+ *        One Non-empty Set
+ *        Three Mixed Sets
+ *  
+ *    X
+ *    Day <= 0
+ *    Day 1
+ *    Day 2
+ *        
+ *
  */
 describe("practice()", () => {
-  it("Example test case - replace with your own tests", () => {
-    assert.fail(
-      "Replace this test case with your own tests based on your testing strategy"
-    );
+  it("Covers Empty Array X Day < 0", () => {
+    const bucket: Array<Set<Flashcard>> = [];
+    const emptySet : Set<Flashcard> = new Set([]);
+    const day = -1;
+    assert.deepEqual(practice(bucket, day), emptySet)
   });
+  it("Covers Empty Array X Day 0", () => {
+    const bucket: Array<Set<Flashcard>> = [];
+    const emptySet : Set<Flashcard> = new Set([]);
+    const day = 0
+    assert.deepEqual(practice(bucket, day), emptySet)
+  });
+  it("Covers Empty Array X Day 1", () => {
+    const bucket: Array<Set<Flashcard>> = [];
+    const emptySet : Set<Flashcard> = new Set([]);
+    const day = 1
+    assert.deepEqual(practice(bucket, day), emptySet)
+  });
+  it("Covers Empty Array X Day 2", () => {
+    const bucket: Array<Set<Flashcard>> = [];
+    const emptySet : Set<Flashcard> = new Set([]);
+    const day = 2
+    assert.deepEqual(practice(bucket, day), emptySet)
+  });
+  it("Covers One Empty Set X Day < 0", () => {
+    const flashSet : Set<Flashcard> = new Set([]);
+    const bucket : Array<Set<Flashcard>> = [flashSet];
+    const emptySet : Set<Flashcard> = new Set([]);
+    const day = -1;
+    assert.deepEqual(practice(bucket, day), emptySet)
+  });
+  it("Covers One Empty Set X Day 0", () => {
+    const flashSet : Set<Flashcard> = new Set([]);
+    const bucket : Array<Set<Flashcard>> = [flashSet];
+    const emptySet : Set<Flashcard> = new Set([]);
+    const day = 0;
+    assert.deepEqual(practice(bucket, day), emptySet)
+  });
+  it("Covers One Empty Set X Day 1", () => {
+    const flashSet : Set<Flashcard> = new Set([]);
+    const bucket : Array<Set<Flashcard>> = [flashSet];
+    const emptySet : Set<Flashcard> = new Set([]);
+    const day = 1;
+    assert.deepEqual(practice(bucket, day), emptySet)
+  });
+  it("Covers One Empty Set X Day 2", () => {
+    const flashSet : Set<Flashcard> = new Set([]);
+    const bucket : Array<Set<Flashcard>> = [flashSet];
+    const emptySet : Set<Flashcard> = new Set([]);
+    const day = 2;
+    assert.deepEqual(practice(bucket, day), emptySet)
+  });
+  it("Covers One Non-empty Set X Day < 0", () => {
+    const flashcard : Flashcard = {
+      front: "hello",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const flashSet : Set<Flashcard> = new Set([flashcard]);
+    const bucket : Array<Set<Flashcard>> = [flashSet];
+    const day = -1;
+    assert.deepEqual(practice(bucket, day), flashSet)
+  });
+  it("Covers One Non-empty Set X Day 0", () => {
+    const flashcard : Flashcard = {
+      front: "hello",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const flashSet : Set<Flashcard> = new Set([flashcard]);
+    const bucket : Array<Set<Flashcard>> = [flashSet];
+    const day = 0;
+    assert.deepEqual(practice(bucket, day), flashSet)
+  });
+  it("Covers One Non-empty Set X Day 1", () => {
+    const flashcard : Flashcard = {
+      front: "hello",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const flashSet : Set<Flashcard> = new Set([flashcard]);
+    const bucket : Array<Set<Flashcard>> = [flashSet];
+    const day = 1;
+    assert.deepEqual(practice(bucket, day), flashSet)
+  });
+  it("Covers One Non-empty Set X Day 2", () => {
+    const flashcard : Flashcard = {
+      front: "hello",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const flashSet : Set<Flashcard> = new Set([flashcard]);
+    const bucket : Array<Set<Flashcard>> = [flashSet];
+    const day = 2;
+    assert.deepEqual(practice(bucket, day), flashSet)
+  });
+  it("Covers Three Mixed Sets X Day < 0", () => {
+    const flashcard1 : Flashcard = {
+      front: "hello",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const flashcard2 : Flashcard = {
+      front: "goodbye", 
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const flashcard3 : Flashcard = {
+      front: "idk",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const flashSet1 : Set<Flashcard> = new Set([flashcard1]);
+    const flashSet2 : Set<Flashcard> = new Set([flashcard2]);
+    const flashSet3 : Set<Flashcard> = new Set([flashcard3]);
+    const bucket = [flashSet1, flashSet2, flashSet3];
+    const day = -1;
+    assert.deepEqual(practice(bucket, day), flashSet1)
+  })
+  it("Covers Three Mixed Sets X Day 0", () => {
+    const flashcard1 : Flashcard = {
+      front: "hello",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const flashcard2 : Flashcard = {
+      front: "goodbye", 
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const flashcard3 : Flashcard = {
+      front: "idk",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const flashSet1 : Set<Flashcard> = new Set([flashcard1]);
+    const flashSet2 : Set<Flashcard> = new Set([flashcard2]);
+    const flashSet3 : Set<Flashcard> = new Set([flashcard3]);
+    const bucket = [flashSet1, flashSet2, flashSet3];
+    const day = 0;
+    assert.deepEqual(practice(bucket, day), flashSet1)
+  })
+  it("Covers Three Mixed Sets X Day 1", () => {
+    const flashcard1 : Flashcard = {
+      front: "hello",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const flashcard2 : Flashcard = {
+      front: "goodbye", 
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const flashcard3 : Flashcard = {
+      front: "idk",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const flashSet1 : Set<Flashcard> = new Set([flashcard1]);
+    const flashSet2 : Set<Flashcard> = new Set([flashcard2]);
+    const flashSet3 : Set<Flashcard> = new Set([flashcard3]);
+    const bucket = [flashSet1, flashSet2, flashSet3];
+    const day = 1;
+    assert.deepEqual(practice(bucket, day), flashSet1)
+  })
+  it("Covers Three Mixed Sets X Day 2", () => {
+    const flashcard1 : Flashcard = {
+      front: "hello",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const flashcard2 : Flashcard = {
+      front: "goodbye", 
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const flashcard3 : Flashcard = {
+      front: "idk",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const flashSet1 : Set<Flashcard> = new Set([flashcard1]);
+    const flashSet2 : Set<Flashcard> = new Set([flashcard2]);
+    const flashSet3 : Set<Flashcard> = new Set([flashcard3]);
+    const resultSet : Set<Flashcard> = new Set();
+    resultSet.add(flashcard1);
+    resultSet.add(flashcard2);
+    const bucket = [flashSet1, flashSet2, flashSet3];
+    const day = 2;
+    assert.deepEqual(practice(bucket, day), resultSet)
+  })
 });
 
 /*

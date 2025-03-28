@@ -72,8 +72,22 @@ export function practice(
   buckets: Array<Set<Flashcard>>,
   day: number
 ): Set<Flashcard> {
-  // TODO: Implement this function
-  throw new Error("Implement me!");
+  const practiceSet = new Set<Flashcard>();
+  if (buckets.length === 0) return practiceSet;
+  else for (const card of buckets[0]!) {
+    practiceSet.add(card);
+  }
+  if (day <= 0 || day % 1 === 1) {
+    return buckets[0]!;
+  }
+  for (let i = 1; i < buckets.length; i++) {
+    if ((day % Math.pow(2, i))  === 0) {
+      for (const card of buckets[i]!) {
+        practiceSet.add(card);
+      }
+    }
+    }
+  return practiceSet;
 }
 
 /**
