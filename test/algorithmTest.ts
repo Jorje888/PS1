@@ -15,28 +15,22 @@ describe("isPrime()", () => {
     const num: number = 8;
     assert.equal(isPrime(num), false);
   });
-});
-
-describe("isPrime()", () => {
   it("See if 7 is prime - should return true", () => {
     const num: number = 7;
     assert.equal(isPrime(num), true);
   });
-});
-
-describe("isPrime()", () => {
   it("See if -1 is prime - should return false", () => {
     const num: number = 0;
     assert.equal(isPrime(num), false);
   });
-});
-
-describe("isPrime()", () => {
   it("See if max int is prime - should return false", () => {
     const num: number = Number.MAX_VALUE;
     assert.equal(isPrime(num), false);
   });
 });
+
+
+
 
 /*
  * Testing strategy for toBucketSets():
