@@ -372,26 +372,162 @@ describe("practice()", () => {
 /*
  * Testing strategy for update():
  *
- * TODO: Describe your testing strategy for update() here.
+ * Cover cartesian product of partitions:
+ *    Bucket has no Flashcard
+ *    Bucket has Flashcard
+ * 
+ *    X
+ * 
+ *    Easy
+ *    Hard
+ *    Wrong
+ * 
  */
 describe("update()", () => {
-  it("Example test case - replace with your own tests", () => {
-    assert.fail(
-      "Replace this test case with your own tests based on your testing strategy"
-    );
+  it("Covers Bucket has no Flashcard X Easy", () => {
+    const buckets : BucketMap = new Map();
+    const extraCard : Flashcard = {
+      front: "hello",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const desiredCard : Flashcard = {
+      front: "goodbye",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const flashSet : Set<Flashcard> = new Set([extraCard]);
+    const resultSet : Set<Flashcard> = new Set([desiredCard, extraCard]);
+    const resultBucket : BucketMap = new Map([[0, resultSet]]);
+    buckets.set(0, flashSet);
+    const difficulty : AnswerDifficulty = AnswerDifficulty.Easy;
+    assert.deepEqual(update(buckets, desiredCard, difficulty), resultBucket);
+  });
+  it("Covers Bucket has no Flashcard X Hard", () => {
+    const buckets : BucketMap = new Map();
+    const extraCard : Flashcard = {
+      front: "hello",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const desiredCard : Flashcard = {
+      front: "goodbye",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const flashSet : Set<Flashcard> = new Set([extraCard]);
+    buckets.set(0, flashSet);
+    const difficulty : AnswerDifficulty = AnswerDifficulty.Easy;
+    assert.deepEqual(update(buckets, desiredCard, difficulty), buckets);
+  });
+  it("Covers Bucket has no Flashcard X Hard", () => {
+    const buckets : BucketMap = new Map();
+    const extraCard : Flashcard = {
+      front: "hello",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const desiredCard : Flashcard = {
+      front: "goodbye",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const flashSet : Set<Flashcard> = new Set([extraCard]);
+    buckets.set(0, flashSet);
+    const difficulty : AnswerDifficulty = AnswerDifficulty.Wrong;
+    assert.deepEqual(update(buckets, desiredCard, difficulty), buckets);
+  });
+  it("Covers Bucket has Flashcard X Easy", () => {
+    const extraCard : Flashcard = {
+      front: "hello",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const desiredCard : Flashcard = {
+      front: "goodbye",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const flashSet1 : Set<Flashcard> = new Set([extraCard]);
+    const flashSet2 : Set<Flashcard> = new Set([desiredCard]);
+    const flashSet3 : Set<Flashcard> = new Set([extraCard]);
+
+    const resultSet : Set<Flashcard> = new Set([extraCard, desiredCard]);
+
+    const buckets : BucketMap = new Map([[0, flashSet1], [1, flashSet2], [2, flashSet3]]);
+    const resultBucket : BucketMap = new Map([[0, flashSet1], [1, new Set<Flashcard>()], [2, resultSet]]);
+    const difficulty : AnswerDifficulty = AnswerDifficulty.Easy;
+    assert.deepEqual(update(buckets, desiredCard, difficulty), resultBucket);
+  });
+  it("Covers Bucket has Flashcard X Hard", () => {
+    const extraCard : Flashcard = {
+      front: "hello",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const desiredCard : Flashcard = {
+      front: "goodbye",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const flashSet1 : Set<Flashcard> = new Set([extraCard]);
+    const flashSet2 : Set<Flashcard> = new Set([desiredCard]);
+    const flashSet3 : Set<Flashcard> = new Set([extraCard]);
+
+    const resultSet : Set<Flashcard> = new Set([extraCard, desiredCard]);
+
+    const buckets : BucketMap = new Map([[0, flashSet1], [1, flashSet2], [2, flashSet3]]);
+    const resultBucket : BucketMap = new Map([[0, flashSet1], [1, flashSet2], [2, flashSet3]]);
+    const difficulty : AnswerDifficulty = AnswerDifficulty.Hard;
+    assert.deepEqual(update(buckets, desiredCard, difficulty), resultBucket);
+  });
+  it("Covers Bucket has Flashcard X Wrong", () => {
+    const extraCard : Flashcard = {
+      front: "hello",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const desiredCard : Flashcard = {
+      front: "goodbye",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    const flashSet1 : Set<Flashcard> = new Set([extraCard]);
+    const flashSet2 : Set<Flashcard> = new Set([desiredCard]);
+    const flashSet3 : Set<Flashcard> = new Set([extraCard]);
+
+    const resultSet : Set<Flashcard> = new Set([extraCard, desiredCard]);
+
+    const buckets : BucketMap = new Map([[0, flashSet1], [1, flashSet2], [2, flashSet3]]);
+    const resultBucket : BucketMap = new Map([[0, resultSet], [1, new Set<Flashcard>()], [2, flashSet3]]);
+    const difficulty : AnswerDifficulty = AnswerDifficulty.Wrong;
+    assert.deepEqual(update(buckets, desiredCard, difficulty), resultBucket);
   });
 });
 
 /*
  * Testing strategy for getHint():
  *
- * TODO: Describe your testing strategy for getHint() here.
+ * Cover Partitions:
+ *    Has Hint
+ *    Has No Hint
  */
 describe("getHint()", () => {
-  it("Example test case - replace with your own tests", () => {
-    assert.fail(
-      "Replace this test case with your own tests based on your testing strategy"
-    );
+  it("Covers Has Hint", () => {
+    const flashcard : Flashcard = {
+      front: "hello",
+      back: "world",
+      hint: "hint",
+      tags: []};
+    assert.equal(getHint(flashcard), "hint");
+  });
+  it("Covers Has No Hint", () => {
+    const flashcard : Flashcard = {
+      front: "hello",
+      back: "world",
+      hint: "",
+      tags: []};
+    assert.equal(getHint(flashcard), "You're on your own with this one");
   });
 });
 

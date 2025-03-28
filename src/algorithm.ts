@@ -104,8 +104,36 @@ export function update(
   card: Flashcard,
   difficulty: AnswerDifficulty
 ): BucketMap {
-  // TODO: Implement this function
-  throw new Error("Implement me!");
+  const newBuckets: BucketMap = new Map<number, Set<Flashcard>>();
+
+  // Iterate over each bucket and duplicate its contents
+  for (const [key, flashSet] of buckets.entries()) {
+    const newFlashSet = new Set<Flashcard>(flashSet);
+    newBuckets.set(key, newFlashSet);
+  }
+
+  const currentBucket = Array.from(buckets.keys()).find(key => buckets.get(key)!.has(card));
+  if (currentBucket === undefined) {
+    const firstBucket = buckets.get(0)!;
+    firstBucket.add(card);
+    newBuckets.set(0, firstBucket);
+  } else {
+    const newFlashSet = new Set<Flashcard>(buckets.get(currentBucket)!);
+    if (difficulty === AnswerDifficulty.Easy) {
+      newFlashSet.delete(card);
+      const nextFlashSet = new Set<Flashcard>(buckets.get(currentBucket + 1)!);
+      nextFlashSet.add(card);
+      newBuckets.set(currentBucket, newFlashSet);
+      newBuckets.set(currentBucket + 1, nextFlashSet);
+    } else if (difficulty === AnswerDifficulty.Wrong) {
+      newFlashSet.delete(card);
+      newBuckets.set(currentBucket, newFlashSet);
+      const firstFlashSet = new Set<Flashcard>(buckets.get(0)!);
+      firstFlashSet.add(card);
+      newBuckets.set(0, firstFlashSet);
+    }
+  }
+  return newBuckets;
 }
 
 /**
@@ -116,8 +144,10 @@ export function update(
  * @spec.requires card is a valid Flashcard.
  */
 export function getHint(card: Flashcard): string {
-  // TODO: Implement this function (and strengthen the spec!)
-  throw new Error("Implement me!");
+  if (card.hint !== "") {
+    return card.hint;
+  }
+  return "You're on your own with this one";
 }
 
 /**
